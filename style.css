@@ -1,0 +1,82 @@
+body{
+    background-color: beige;
+    font-family: "Gill Sans", sans-serif;
+}
+
+#mainCont{
+    margin: auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 50px;
+    margin: 10px;
+}
+
+.entryText{
+    font-size: 20px;
+    display: inline;
+    margin-right: 20px;
+}
+
+.entryCont{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#inputCont{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#entryInput{
+    width: 50%;
+    height: 40px;
+    font-size: 25px;
+    border-radius: 10px 0 0 10px;
+    background-color: #FFC8DD;
+    border: 2px solid grey;
+    border-right: none;
+    margin: 0;
+    padding: 0 3px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+#entryInput:focus {
+    outline: none;
+    background-color: #dfc8ff;
+}
+
+#entryInput:hover {
+    background-color: #dfc8ff;
+    animation: ease;
+    animation-duration: 100ms;
+}
+
+button {
+    border: 2px solid grey;
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
+#entryButton{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    border-radius: 0 10px 10px 0;
+}
+
+#listCont {
+    width: calc(50% + 40px);
+    background-color: aliceblue;
+    padding-bottom: 10px;
+}
