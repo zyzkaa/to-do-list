@@ -18,17 +18,6 @@ h1 {
     margin: 10px;
 }
 
-.entryText{
-    font-size: 20px;
-    display: inline;
-    margin-right: 20px;
-}
-
-.entryCont{
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
 #inputCont{
     width: 100%;
     height: 50px;
@@ -48,18 +37,22 @@ h1 {
     margin: 0;
     padding: 0 3px;
     box-sizing: border-box;
-    transition: background-color 0.3s ease;
+    /* transition: background-color 0.3s ease; */
+    
 }
 
 #entryInput:focus {
     outline: none;
-    background-color: #dfc8ff;
 }
 
-#entryInput:hover {
-    background-color: #dfc8ff;
-    animation: ease;
-    animation-duration: 100ms;
+@keyframes inputText {
+    100%{
+        color: #FFC8DD;
+    }
+}
+
+#entryInput.animate {
+    animation: inputText 0.5s forwards;
 }
 
 button {
@@ -73,10 +66,66 @@ button {
     height: 40px;
     margin: 0;
     border-radius: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#addIcon{
+    width: 120%;
+    height: 120%;
+    transition: transform 0.3s ease;
+}
+
+#addIcon:hover {
+    transform: rotate(90deg) ;
+}
+
+@keyframes adding {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(2);  
+    }
+    100%{
+        transform: scale(1) rotate(720deg);
+    }
+}
+
+#addIcon.animate {
+    animation: adding 1s forwards;
 }
 
 #listCont {
     width: calc(50% + 40px);
-    background-color: aliceblue;
     padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+.entryText{
+    font-size: 200%;
+    display: inline;
+    margin-right: 20px;
+    flex: 1; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+.entryCont{
+    margin-top: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.delButton {
+    height: 100%;
+    border-radius: 10px;
+    width: 40px;
+    transition: all 0.3s ease;
+}
+
+.delButton:hover{
+    transform: rotate(180deg);
 }
