@@ -23,6 +23,19 @@ addButton.addEventListener('click', () => {
     })
 })
 
+function makeDelButton(idx) {
+    const delButton = document.createElement("button");
+    delButton.onclick = () => deleteEntry(idx);
+    delButton.className = "delButton";
+
+    const image = document.createElement("img");
+    image.src = "plus-svgrepo-com.svg";
+    image.className = "delIcon"
+    delButton.appendChild(image);
+
+    return delButton;
+}
+
 function displayEntries(){
     listDiv.innerHTML = null;
     for(const [idx, item] of Object.entries(entries)){
@@ -33,16 +46,11 @@ function displayEntries(){
         entryText.textContent = item;
         entryText.className = "entryText"
 
-        const delButton = document.createElement("button");
-        delButton.innerHTML = "del";
-        delButton.onclick = () => deleteEntry(idx);
-        delButton.className = "delButton";
-
         const settingsButton = document.createElement("button")
         settingsButton.innerHTML = "settings"
 
         entryDiv.appendChild(entryText);
-        entryDiv.appendChild(delButton);
+        entryDiv.appendChild(makeDelButton(idx));
         // entryDiv.appendChild(settingsButton);
         listDiv.appendChild(entryDiv);
     }
@@ -61,6 +69,7 @@ function addEntry(){
     entries.push(value);
     input.classList.add('animate');
     addButton.disabled = true;
+    input.disabled = true;
 
     setTimeout(() => {
         input.value = "";
@@ -68,7 +77,8 @@ function addEntry(){
         saveEntries();
         input.classList.remove('animate');
         addButton.disabled = false;
-    }, 600);
+        input.disabled = false;
+    }, 250);
 }
 
 function saveEntries(){
