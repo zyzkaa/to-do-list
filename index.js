@@ -4,6 +4,17 @@ const addButton = document.getElementById("entryButton");
 const input = document.getElementById("entryInput");
 const storageKey = "list elements";
 
+/* ZROBIC!!!!
+
+custom scroll
+
+*/
+
+function enforceFocus() {
+    input.focus();
+}
+document.addEventListener("click", enforceFocus);
+
 input.addEventListener("keypress", function(event) {
     if(event.key == "Enter") {
         event.preventDefault();
@@ -44,20 +55,20 @@ function displayEntries(){
 
         const entryText = document.createElement("p");
         entryText.textContent = item;
-        entryText.className = "entryText"
-
-        const settingsButton = document.createElement("button")
-        settingsButton.innerHTML = "settings"
+        entryText.className = "entryText";
 
         entryDiv.appendChild(entryText);
         entryDiv.appendChild(makeDelButton(idx));
-        // entryDiv.appendChild(settingsButton);
         listDiv.appendChild(entryDiv);
     }
 }
 
 function deleteEntry(idx){
-    entries.splice(idx, 1);
+    if(entries[idx][1]){
+        entries[idx][1] = false;
+    } else {
+        entries.splice(idx, 1);
+    }
     displayEntries();
     saveEntries();
 }
@@ -66,7 +77,9 @@ function addEntry(){
     const value = input.value;
     if(!value) return;
 
-    entries.push(value);
+
+    let newEntry = [value, true]; // states: true - active; false - done; next click deletes it
+    entries.push(newEntry);
     input.classList.add('animate');
     addButton.disabled = true;
     input.disabled = true;
@@ -78,6 +91,7 @@ function addEntry(){
         input.classList.remove('animate');
         addButton.disabled = false;
         input.disabled = false;
+        input.focus();
     }, 250);
 }
 
