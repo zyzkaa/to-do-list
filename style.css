@@ -112,6 +112,10 @@ button {
     text-overflow: ellipsis; 
 }
 
+.entryText.done {
+    text-decoration: line-through;
+}
+
 .entryCont{
     margin-top: 15px;
     height: 40px;
@@ -126,6 +130,11 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.delButton.done {
+    background-color: #f1c6c5;
 }
 
 .delIcon{

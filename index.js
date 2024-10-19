@@ -10,10 +10,9 @@ custom scroll
 
 */
 
-function enforceFocus() {
+document.addEventListener("click", () => {
     input.focus();
-}
-document.addEventListener("click", enforceFocus);
+});
 
 input.addEventListener("keypress", function(event) {
     if(event.key == "Enter") {
@@ -34,19 +33,6 @@ addButton.addEventListener('click', () => {
     })
 })
 
-function makeDelButton(idx) {
-    const delButton = document.createElement("button");
-    delButton.onclick = () => deleteEntry(idx);
-    delButton.className = "delButton";
-
-    const image = document.createElement("img");
-    image.src = "plus-svgrepo-com.svg";
-    image.className = "delIcon"
-    delButton.appendChild(image);
-
-    return delButton;
-}
-
 function displayEntries(){
     listDiv.innerHTML = null;
     for(const [idx, item] of Object.entries(entries)){
@@ -54,18 +40,54 @@ function displayEntries(){
         entryDiv.className = "entryCont"
 
         const entryText = document.createElement("p");
-        entryText.textContent = item;
+        entryText.textContent = item[0];
         entryText.className = "entryText";
 
+        const delButton = document.createElement("button");
+        delButton.onclick = () => deleteEntry(idx);
+        delButton.className = "delButton";
+        const image = document.createElement("img");
+        image.src = "plus-svgrepo-com.svg";
+        image.className = "delIcon"
+        delButton.appendChild(image);
+
+        if (!entries[idx][1]) {
+            entryText.classList.add("done");
+            delButton.classList.add("done");
+        }
+
         entryDiv.appendChild(entryText);
-        entryDiv.appendChild(makeDelButton(idx));
+        entryDiv.appendChild(delButton);
         listDiv.appendChild(entryDiv);
     }
+}
+
+function rearrangeEntries(idx){
+    let length = entries.length - 1;
+    if(length == 0) return;
+    
+    const temp = entries.splice(idx, 1);
+    length--;
+    
+    let newIdx = 0;
+    while(newIdx <= length && entries[newIdx][1]){
+        newIdx++;
+    }
+
+    // if(newIdx == length) {
+    //     entries.push(temp);
+    // } else {
+    //     entries.splice(newIdx, 0, temp);
+    // }
+
+    entries.splice(newIdx, 0, temp);
+    
 }
 
 function deleteEntry(idx){
     if(entries[idx][1]){
         entries[idx][1] = false;
+        rearrangeEntries(idx);
     } else {
         entries.splice(idx, 1);
     }
@@ -77,9 +99,8 @@ function addEntry(){
     const value = input.value;
     if(!value) return;
 
-
     let newEntry = [value, true]; // states: true - active; false - done; next click deletes it
-    entries.push(newEntry);
+    entries.unshift(newEntry);
     input.classList.add('animate');
     addButton.disabled = true;
     input.disabled = true;
