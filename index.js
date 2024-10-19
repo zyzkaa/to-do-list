@@ -35,7 +35,7 @@ addButton.addEventListener('click', () => {
 
 function displayEntries(){
     listDiv.innerHTML = null;
-    for(const [idx, item] of Object.entries(entries)){
+    entries.forEach((item, idx) => {
         const entryDiv = document.createElement("div");
         entryDiv.className = "entryCont"
 
@@ -59,14 +59,14 @@ function displayEntries(){
         entryDiv.appendChild(entryText);
         entryDiv.appendChild(delButton);
         listDiv.appendChild(entryDiv);
-    }
+    });
 }
 
 function rearrangeEntries(idx){
     let length = entries.length - 1;
     if(length == 0) return;
     
-    const temp = entries.splice(idx, 1);
+    const [temp] = entries.splice(idx, 1);
     length--;
     
     let newIdx = 0;
@@ -74,14 +74,7 @@ function rearrangeEntries(idx){
         newIdx++;
     }
 
-    // if(newIdx == length) {
-    //     entries.push(temp);
-    // } else {
-    //     entries.splice(newIdx, 0, temp);
-    // }
-
     entries.splice(newIdx, 0, temp);
-    
 }
 
 function deleteEntry(idx){
@@ -99,7 +92,7 @@ function addEntry(){
     const value = input.value;
     if(!value) return;
 
-    let newEntry = [value, true]; // states: true - active; false - done; next click deletes it
+    const newEntry = [value, true]; // states: true - active; false - done; next click deletes it
     entries.unshift(newEntry);
     input.classList.add('animate');
     addButton.disabled = true;
