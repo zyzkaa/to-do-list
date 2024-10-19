@@ -15,7 +15,8 @@ body{
 h1 {
     font-weight: 500;
     font-size: 50px;
-    margin: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 #inputCont{
@@ -147,3 +148,35 @@ button {
 .delIcon:hover {
     transform: scale(0.8) rotate(45deg);
 }
+
+
+
+/* home page -----------------------------------------------------------------------------------------*/
+
+#addListButton {
+    height: 100%;
+    border-radius: 10px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#addListIcon{
+    transition: all 0.3s ease;
+}
+
+#addListIcon:hover {
+    transform: scale(0.85);
+}
+
+#addListCont {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
