@@ -1,6 +1,7 @@
 let lists = [];
 const storageKey = "lists"
 const addListButton = document.getElementById("addListButton");
+const listInput = document.getElementById("addListInput");
 
 function saveEntries(){
     const stringLists = JSON.stringify(lists);
@@ -13,6 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
 })
 
-addListButton.addEventListener("click", () => {
-    
+addListButton.addEventListener('click', () => {
+    listInput.classList.add("active");
 })
