@@ -111,16 +111,17 @@ button {
 
 .entryText{
     font-size: 200%;
-    display: inline;
     margin-right: 20px;
     flex: 1; 
     overflow: hidden; 
+    position: relative;
     text-overflow: ellipsis; 
+    transition: all 0.25s cubic-bezier(1, 0, 0.58, 0.95);
 }
 
-.entryText.done {
+/* .entryText.done {
     text-decoration: line-through;
-}
+} */
 
 .entryCont{
     margin-top: 15px;
