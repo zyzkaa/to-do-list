@@ -77,6 +77,9 @@ function rearrangeEntries(idx){
     entries.splice(newIdx, 0, temp);
 }
 
+
+// najpierw sie skresla, potem znika i pojawia sie na swoim miejscu
+
 function deleteEntry(idx){
     if(entries[idx][1]){
         entries[idx][1] = false;
@@ -93,16 +96,23 @@ function addEntry(){
     if(!value) return;
 
     const newEntry = [value, true]; // states: true - active; false - done; next click deletes it
-    entries.unshift(newEntry);
-    input.classList.add('animate');
+
     addButton.disabled = true;
     input.disabled = true;
 
+    listDiv.classList.add('animate');
+    input.classList.add('animate');
+
     setTimeout(() => {
         input.value = "";
+
+        input.classList.remove('animate');
+        listDiv.classList.remove('animate');
+
+        entries.unshift(newEntry);
         displayEntries();
         saveEntries();
-        input.classList.remove('animate');
+
         addButton.disabled = false;
         input.disabled = false;
         input.focus();

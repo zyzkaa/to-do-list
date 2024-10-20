@@ -101,6 +101,12 @@ button {
     width: calc(50% + 40px);
     padding-bottom: 10px;
     border-radius: 10px;
+    transition: none;
+}
+
+#listCont.animate {
+    transform: translateY(55px);
+    transition: all 0.2s ease;  
 }
 
 .entryText{
@@ -121,6 +127,10 @@ button {
     height: 40px;
     display: flex;
     align-items: center;
+}
+
+.entryCont.animate {
+    background-color: blue;
 }
 
 .delButton {
