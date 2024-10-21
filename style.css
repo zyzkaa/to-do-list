@@ -112,14 +112,29 @@ button {
 .entryText{
     font-size: 200%;
     margin-right: 20px;
-    flex: 1; 
     overflow: hidden; 
     position: relative;
     text-overflow: ellipsis; 
 }
 
-.entryText.done {
-    text-decoration: line-through;
+.entryText::after {
+    content: '';
+    width: 10px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 0;
+    width: 0;
+    transition: all 0.3s ease;
+}
+
+.entryText.animate::after {
+    width: 100%;
+}
+
+.entryText.done::after {
+    color: red;
 }
 
 .entryCont{
@@ -127,16 +142,14 @@ button {
     height: 40px;
     display: flex;
     align-items: center;
-}
-
-.entryCont.animate {
-    background-color: blue;
+    justify-content: space-between;
 }
 
 .delButton {
     height: 100%;
     border-radius: 10px;
     width: 40px;
+    min-width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;

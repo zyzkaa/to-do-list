@@ -52,7 +52,7 @@ function displayEntries(){
         delButton.appendChild(image);
 
         if (!entries[idx][1]) {
-            entryText.classList.add("done");
+            //entryText.classList.add("done");
             delButton.classList.add("done");
         }
 
@@ -83,7 +83,10 @@ function rearrangeEntries(idx){
 function deleteEntry(idx){
     if(entries[idx][1]){
         entries[idx][1] = false;
-        rearrangeEntries(idx);
+        const text = document.getElementsByClassName("entryText")[idx];
+        console.log(text);
+        text.classList.add('animate');
+        //rearrangeEntries(idx);
     } else {
         entries.splice(idx, 1);
     }
@@ -138,3 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if(oldEntries) entries = JSON.parse(oldEntries);
     displayEntries();
 })
+
+function clear(){
+    localStorage.clear();
+}
+
