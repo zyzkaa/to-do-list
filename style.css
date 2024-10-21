@@ -115,6 +115,11 @@ button {
     overflow: hidden; 
     position: relative;
     text-overflow: ellipsis; 
+    transition: all 0.2s ease;
+}
+
+.entryText.hide {
+    opacity: 0;
 }
 
 .entryText::after {
@@ -126,7 +131,7 @@ button {
     top: calc(50% - 1px);
     left: 0;
     width: 0;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .entryText.animate::after {
@@ -134,7 +139,7 @@ button {
 }
 
 .entryText.done::after {
-    color: red;
+    width: 100%;
 }
 
 .entryCont{
@@ -143,6 +148,25 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.entryCont.show {
+    animation: show 2s forwards; 
+}
+
+.entryCont.shift {
+    transform: translateY(-55px);
 }
 
 .delButton {
@@ -153,11 +177,25 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
 }
 
 .delButton.done {
     background-color: #f1c6c5;
+}
+
+@keyframes hideButton {
+    0% {
+        scale: 1;
+    }
+
+    100%{
+        scale: 0;
+        rotate: 270deg;
+    }
+}
+
+.delButton.hide {
+    animation: hideButton 0.4s forwards;
 }
 
 .delIcon{

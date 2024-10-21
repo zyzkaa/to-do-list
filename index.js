@@ -52,8 +52,10 @@ function displayEntries(){
         delButton.appendChild(image);
 
         if (!entries[idx][1]) {
-            //entryText.classList.add("done");
+            entryText.classList.add("done");
             delButton.classList.add("done");
+            entryDiv.classList.add("completed");
+            entryDiv.classList.remove("shift");
         }
 
         entryDiv.appendChild(entryText);
@@ -74,7 +76,16 @@ function rearrangeEntries(idx){
         newIdx++;
     }
 
-    entries.splice(newIdx, 0, temp);
+    const divs = document.getElementsByClassName("entryCont");
+    for(let i = idx; i <= newIdx; i++){
+        divs[i].classList.add("shift")
+    }
+    
+    setTimeout(() => {
+        entries.splice(newIdx, 0, temp);
+        document.getElementsByClassName("entryCont")[newIdx].classList.add("show");
+        console.log(document.getElementsByClassName("entryCont")[newIdx]);
+    }, 205);
 }
 
 
@@ -84,14 +95,44 @@ function deleteEntry(idx){
     if(entries[idx][1]){
         entries[idx][1] = false;
         const text = document.getElementsByClassName("entryText")[idx];
-        console.log(text);
+        const button = document.getElementsByClassName("delButton")[idx];
         text.classList.add('animate');
-        //rearrangeEntries(idx);
+
+        let count = 0;
+        entries.forEach((element) => {
+            if (element[1]) {count++};
+        });
+
+        if(idx == count){
+            setTimeout(() => {
+                displayEntries();
+                saveEntries();
+            }, 205);
+            return;
+        }
+        
+        button.classList.add('hide');
+
+        setTimeout(() => {
+            text.classList.add('hide');
+
+            setTimeout(() => {
+                rearrangeEntries(idx);
+
+                setTimeout(() => {
+                    displayEntries();
+                    saveEntries();
+                }, 205);
+
+            }, 205);
+
+        }, 205);
+        
     } else {
         entries.splice(idx, 1);
+        displayEntries();
+        saveEntries();
     }
-    displayEntries();
-    saveEntries();
 }
 
 function inputOff(){
