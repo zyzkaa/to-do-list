@@ -91,14 +91,24 @@ function deleteEntry(idx){
     saveEntries();
 }
 
+function inputOff(){
+    addButton.disabled = true;
+    input.disabled = true;
+}
+
+function inputOn(){
+    addButton.disabled = false;
+    input.disabled = false;
+    input.focus();
+}
+
 function addEntry(){
     const value = input.value;
     if(!value) return;
 
     const newEntry = [value, true]; // states: true - active; false - done; next click deletes it
 
-    addButton.disabled = true;
-    input.disabled = true;
+    inputOff();
 
     listDiv.classList.add('animate');
     input.classList.add('animate');
@@ -113,9 +123,8 @@ function addEntry(){
         displayEntries();
         saveEntries();
 
-        addButton.disabled = false;
-        input.disabled = false;
-        input.focus();
+        inputOn();
+
     }, 250);
 }
 
