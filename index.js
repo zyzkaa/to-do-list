@@ -4,12 +4,6 @@ const addButton = document.getElementById("entryButton");
 const input = document.getElementById("entryInput");
 const storageKey = "list elements";
 
-/* ZROBIC!!!!
-
-custom scroll
-
-*/
-
 document.addEventListener("click", () => {
     input.focus();
 });
@@ -83,56 +77,70 @@ function rearrangeEntries(idx){
     
     setTimeout(() => {
         entries.splice(newIdx, 0, temp);
+        displayEntries();
         document.getElementsByClassName("entryCont")[newIdx].classList.add("show");
-        console.log(document.getElementsByClassName("entryCont")[newIdx]);
     }, 205);
+    
 }
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// najpierw sie skresla, potem znika i pojawia sie na swoim miejscu
+async function deleteEntry(idx){
+    inputOff();
+    const text = document.getElementsByClassName("entryText")[idx];
+    const button = document.getElementsByClassName("delButton")[idx];
 
-function deleteEntry(idx){
     if(entries[idx][1]){
         entries[idx][1] = false;
-        const text = document.getElementsByClassName("entryText")[idx];
-        const button = document.getElementsByClassName("delButton")[idx];
+
         text.classList.add('animate');
 
         let count = 0;
         entries.forEach((element) => {
             if (element[1]) {count++};
-        });
+        }); 
 
         if(idx == count){
-            setTimeout(() => {
-                displayEntries();
-                saveEntries();
-            }, 205);
+            button.classList.add('done');
+            await delay(205);
+            displayEntries();
+            saveEntries();
+            inputOn();
             return;
         }
         
         button.classList.add('hide');
 
-        setTimeout(() => {
-            text.classList.add('hide');
-
-            setTimeout(() => {
-                rearrangeEntries(idx);
-
-                setTimeout(() => {
-                    displayEntries();
-                    saveEntries();
-                }, 205);
-
-            }, 205);
-
-        }, 205);
+        await delay(205);
+        text.classList.add('hide');
+        
+        await delay(205);
+        rearrangeEntries(idx);
+    
+        await delay(410);
+        displayEntries();
+        saveEntries();
+        text.classList.remove('hide');
+        button.classList.remove('hide');
         
     } else {
+        text.classList.add('hide');
+        button.classList.add('hide');
+        
+
+        await delay(205);
+        const divs = document.getElementsByClassName("entryCont");
+        for(let i = idx + 1; i < entries.length; i++){
+            divs[i].classList.add("shift");
+        }
+
+        await delay(205);
         entries.splice(idx, 1);
         displayEntries();
         saveEntries();
     }
+
+    inputOn();
 }
 
 function inputOff(){

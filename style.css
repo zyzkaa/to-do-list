@@ -162,7 +162,7 @@ button {
 }
 
 .entryCont.show {
-    animation: show 2s forwards; 
+    animation: show 0.2s forwards; 
 }
 
 .entryCont.shift {
@@ -177,6 +177,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
 
 .delButton.done {
